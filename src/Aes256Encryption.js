@@ -29,6 +29,14 @@ const Aes256Encryption = () => {
     setDecryptedText(decrypted.toString(CryptoJS.enc.Utf8));
   };
 
+  // Handle input changes and enforce 32-character limit
+  const handleKeyChange = (e) => {
+    const value = e.target.value;
+    if (value.length <= 32) {
+      setEncryptionKey(value);
+    }
+  };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px', backgroundColor: '#f4f4f9', height: '100vh' }}>
       <h2>AES-256 Encryption and Decryption</h2>
@@ -42,20 +50,36 @@ const Aes256Encryption = () => {
       />
       <input
         type="text"
-        placeholder="Encryption Key"
+        placeholder="Encryption Key (32 characters)"
         value={encryptionKey}
-        onChange={(e) => setEncryptionKey(e.target.value)}
+        onChange={handleKeyChange}
         required
         style={{ margin: '10px 0', padding: '10px', width: '300px' }}
       />
-      <button onClick={encrypt} style={{ margin: '10px 0', padding: '10px 20px', backgroundColor: '#4a90e2', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+      <small>{encryptionKey.length}/32 characters</small>
+      <button
+        onClick={encrypt}
+        disabled={encryptionKey.length !== 32} // Button only enabled when key length is 32
+        style={{
+          margin: '10px 0',
+          padding: '10px 20px',
+          backgroundColor: encryptionKey.length === 32 ? '#4a90e2' : '#ccc',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: encryptionKey.length === 32 ? 'pointer' : 'not-allowed',
+        }}
+      >
         Encrypt
       </button>
       {encryptedText && (
         <>
           <h3>Encrypted Text:</h3>
           <textarea readOnly value={encryptedText} rows="4" style={{ width: '300px', margin: '10px 0' }} />
-          <button onClick={decrypt} style={{ margin: '10px 0', padding: '10px 20px', backgroundColor: '#4a90e2', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+          <button
+            onClick={decrypt}
+            style={{ margin: '10px 0', padding: '10px 20px', backgroundColor: '#4a90e2', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+          >
             Decrypt
           </button>
         </>
