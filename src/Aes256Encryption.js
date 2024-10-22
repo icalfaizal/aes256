@@ -39,10 +39,11 @@ const Aes256Encryption = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px', backgroundColor: '#f4f4f9', height: '100vh' }}>
-      <h2>AES-256 Encryption and Decryption</h2>
+      <h2>Nur Faizal Basri - 23.51.1450</h2>
+      <h2>Tugas Cyber Security : AES-256 Encryption and Decryption</h2>
       <input
         type="text"
-        placeholder="Input Text"
+        placeholder="Masukkan Text"
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
         required
@@ -50,7 +51,7 @@ const Aes256Encryption = () => {
       />
       <input
         type="text"
-        placeholder="Encryption Key (32 characters)"
+        placeholder="Kunci Enkripsi (32 Karakter)"
         value={encryptionKey}
         onChange={handleKeyChange}
         required
